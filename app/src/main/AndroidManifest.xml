@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mba0166.androidmlkit">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,9 +20,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".faces.FaceDetectionActivity" />
+
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="barcode, face" />
+            android:value="barcode, face, text" />
     </application>
 
 </manifest>

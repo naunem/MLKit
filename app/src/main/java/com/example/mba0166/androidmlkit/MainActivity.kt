@@ -1,45 +1,43 @@
 package com.example.mba0166.androidmlkit
 
-import android.graphics.BitmapFactory
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import com.google.firebase.FirebaseApp
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.face.FirebaseVisionFace
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
+import android.view.View
+import android.widget.Button
+import com.example.mba0166.androidmlkit.faces.FaceDetectionActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var mFace: FirebaseVisionFace? = null
+    private lateinit var mBtnText: Button
+    private lateinit var mBtnFaces: Button
+    private lateinit var mBtnBarcode: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.img_kim_so_hyun)
-        val image = FirebaseVisionImage.fromBitmap(bitmap)
+        mBtnText = findViewById(R.id.btnText)
+        mBtnFaces = findViewById(R.id.btnFaces)
+        mBtnBarcode = findViewById(R.id.btnBarcode)
 
-        val options = FirebaseVisionFaceDetectorOptions.Builder()
-                .setModeType(FirebaseVisionFaceDetectorOptions.FAST_MODE)
-                .setLandmarkType(
-                        FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-                .setClassificationType(
-                        FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
-                .setMinFaceSize(0.15f)
-                .setTrackingEnabled(true)
-                .build()
+        mBtnText.setOnClickListener(this)
+        mBtnFaces.setOnClickListener(this)
+        mBtnBarcode.setOnClickListener(this)
+    }
 
-        val detector = FirebaseVision.getInstance()
-                .getVisionFaceDetector(options)
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btnText -> {
 
-        val result = detector.detectInImage(image)
-                .addOnSuccessListener {
-                    Log.d("xxxx", "$it")
-                }
-                .addOnFailureListener {
-                    Log.d("xxxx", "${it.message}")
-                }
+            }
+            R.id.btnFaces -> {
+                val intent = Intent(this, FaceDetectionActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.btnBarcode -> {
+
+            }
+        }
     }
 }
