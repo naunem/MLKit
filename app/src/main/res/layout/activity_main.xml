@@ -9,17 +9,17 @@
         android:id="@+id/btnText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Text Detect"/>
+        android:text="Text Recognition"/>
 
     <Button
         android:id="@+id/btnFaces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Face Detect"/>
+        android:text="Face Detection"/>
 
     <Button
         android:id="@+id/btnBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Barcode Detect"/>
+        android:text="Barcode Detection"/>
 </LinearLayout>

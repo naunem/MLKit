@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
-import com.example.mba0166.androidmlkit.faces.FaceDetectionActivity
+import com.example.mba0166.androidmlkit.text.TextRecognitionActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,10 +29,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnText -> {
-
+                val intent = Intent(this, TextRecognitionActivity::class.java)
+                startActivity(intent)
             }
             R.id.btnFaces -> {
-                val intent = Intent(this, FaceDetectionActivity::class.java)
+                val intent = Intent(this, TextRecognitionActivity::class.java)
                 startActivity(intent)
             }
             R.id.btnBarcode -> {
