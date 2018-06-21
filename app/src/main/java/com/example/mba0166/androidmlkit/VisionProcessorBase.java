@@ -1,21 +1,10 @@
-// Copyright 2018 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 package com.example.mba0166.androidmlkit;
 
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,8 +46,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
                         .setRotation(frameMetadata.getRotation())
                         .build();
 
-        detectInVisionImage(
-                FirebaseVisionImage.fromByteBuffer(data, metadata), frameMetadata, graphicOverlay);
+        detectInVisionImage(FirebaseVisionImage.fromByteBuffer(data, metadata), frameMetadata, graphicOverlay);
     }
 
     // Bitmap version
@@ -76,6 +64,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
      *
      * @return created FirebaseVisionImage
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void process(Image image, int rotation, final GraphicOverlay graphicOverlay) {
         if (shouldThrottle.get()) {

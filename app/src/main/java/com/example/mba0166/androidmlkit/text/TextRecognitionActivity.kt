@@ -88,14 +88,17 @@ class TextRecognitionActivity : AppCompatActivity(), OnRecognitionListener {
 
     override fun success(results: FirebaseVisionText) {
         val blocks = results.blocks
+//        mDisplayList.clear()
         for (i in blocks.indices) {
-            mDisplayList.clear()
             val lines = blocks[i].lines
+            Log.i("xxxx", "$lines")
             for (j in lines.indices) {
                 val elements = lines[j].elements
+                Log.i("xxxx", "$elements")
                 for (k in elements.indices) {
                     Log.d("xxxx", "success: " + elements[k].text)
                     mDisplayList.add(elements[k].text)
+                    mRecyclerView.scrollToPosition(mDisplayList.size - 1)
                     mAdapter.notifyDataSetChanged()
                 }
             }
