@@ -331,9 +331,9 @@ public class CameraSource {
         // detection takes a non-trivial amount of time.
         camera.setPreviewCallbackWithBuffer(new CameraPreviewCallback());
         camera.addCallbackBuffer(createPreviewBuffer(previewSize));
-        camera.addCallbackBuffer(createPreviewBuffer(previewSize));
-        camera.addCallbackBuffer(createPreviewBuffer(previewSize));
-        camera.addCallbackBuffer(createPreviewBuffer(previewSize));
+//        camera.addCallbackBuffer(createPreviewBuffer(previewSize));
+//        camera.addCallbackBuffer(createPreviewBuffer(previewSize));
+//        camera.addCallbackBuffer(createPreviewBuffer(previewSize));
 
         return camera;
     }

@@ -2,21 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBlack"
     android:orientation="vertical">
 
     <com.example.mba0166.androidmlkit.CameraSourcePreview
-        android:id="@+id/Preview"
+        android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.example.mba0166.androidmlkit.GraphicOverlay
-            android:id="@+id/Overlay"
+            android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.example.mba0166.androidmlkit.CameraSourcePreview>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <ToggleButton
+        android:id="@+id/tbSwitchCamera"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_switch_camera_white_24dp"
+        android:checked="true"
+        android:textOff=""
+        android:textOn="" />
 </RelativeLayout>

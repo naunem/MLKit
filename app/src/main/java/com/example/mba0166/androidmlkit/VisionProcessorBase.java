@@ -79,30 +79,23 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
         detectInVisionImage(fbVisionImage, frameMetadata, graphicOverlay);
     }
 
-    private void detectInVisionImage(
-            FirebaseVisionImage image,
-            final FrameMetadata metadata,
-            final GraphicOverlay graphicOverlay) {
+    private void detectInVisionImage(FirebaseVisionImage image, final FrameMetadata metadata, final GraphicOverlay graphicOverlay) {
         detectInImage(image)
-                .addOnSuccessListener(
-                        new OnSuccessListener<T>() {
-                            @Override
-                            public void onSuccess(T results) {
-                                shouldThrottle.set(false);
-                                VisionProcessorBase.this.onSuccess(results, metadata,
-                                        graphicOverlay);
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                shouldThrottle.set(false);
-                                VisionProcessorBase.this.onFailure(e);
-                            }
-                        });
-        // Begin throttling until this frame of input has been processed, either in onSuccess or
-        // onFailure.
+                .addOnSuccessListener(new OnSuccessListener<T>() {
+                    @Override
+                    public void onSuccess(T results) {
+                        shouldThrottle.set(false);
+                        VisionProcessorBase.this.onSuccess(results, metadata,
+                                graphicOverlay);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        shouldThrottle.set(false);
+                        VisionProcessorBase.this.onFailure(e);
+                    }
+                });
         shouldThrottle.set(true);
     }
 

@@ -20,7 +20,7 @@ import java.io.IOException
  */
 class FaceDetectionProcessor : VisionProcessorBase<List<FirebaseVisionFace>>() {
 
-    private val detector: FirebaseVisionFaceDetector
+    private val mDetector: FirebaseVisionFaceDetector
 
     init {
         val options = FirebaseVisionFaceDetectorOptions.Builder()
@@ -29,12 +29,12 @@ class FaceDetectionProcessor : VisionProcessorBase<List<FirebaseVisionFace>>() {
                 .setTrackingEnabled(true)
                 .build()
 
-        detector = FirebaseVision.getInstance().getVisionFaceDetector(options)
+        mDetector = FirebaseVision.getInstance().getVisionFaceDetector(options)
     }
 
     override fun stop() {
         try {
-            detector.close()
+            mDetector.close()
         } catch (e: IOException) {
             Log.e("", "Exception thrown while trying to close Face Detector: $e")
         }
@@ -42,22 +42,21 @@ class FaceDetectionProcessor : VisionProcessorBase<List<FirebaseVisionFace>>() {
     }
 
     override fun detectInImage(image: FirebaseVisionImage): Task<List<FirebaseVisionFace>> {
-        return detector.detectInImage(image)
+        return mDetector.detectInImage(image)
     }
 
     override fun onSuccess(faces: List<FirebaseVisionFace>, frameMetadata: FrameMetadata, graphicOverlay: GraphicOverlay) {
         graphicOverlay.clear()
-        for (i in faces.indices) {
-            val face = faces[i]
-            Log.e("xxxx", "success: $face")
+        for (face: FirebaseVisionFace in faces) {
+            Log.d("xxxx", "success: $face")
 
-            //            FaceGraphic faceGraphic = new FaceGraphic(graphicOverlay);
-            //            graphicOverlay.add(faceGraphic);
-            //            faceGraphic.updateFace(face, frameMetadata.getCameraFacing());
+            val faceGraphic = FaceGraphic(graphicOverlay)
+            graphicOverlay.add(faceGraphic)
+            faceGraphic.updateFace(face)
         }
     }
 
     override fun onFailure(e: Exception) {
-        Log.e("xxxx", "Face detection failed $e")
+        Log.d("xxxx", "Face detection failed $e")
     }
 }

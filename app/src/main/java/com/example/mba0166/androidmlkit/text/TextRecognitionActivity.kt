@@ -27,7 +27,7 @@ class TextRecognitionActivity : AppCompatActivity(), OnRecognitionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_faces_detection)
+        setContentView(R.layout.activity_text_recognition)
 
         initView(this)
         createCameraSource()
@@ -64,7 +64,7 @@ class TextRecognitionActivity : AppCompatActivity(), OnRecognitionListener {
     private fun startCameraSource() {
         if (mCameraSource != null) {
             try {
-                mPreview!!.start(mCameraSource, mGraphicOverlay)
+                mPreview!!.start(mCameraSource!!, mGraphicOverlay!!)
             } catch (e: IOException) {
                 Log.d("xxxx", "startCameraSource : Unable to start camera source." + e.message)
                 mCameraSource!!.release()
@@ -88,19 +88,19 @@ class TextRecognitionActivity : AppCompatActivity(), OnRecognitionListener {
 
     override fun success(results: FirebaseVisionText) {
         val blocks = results.blocks
-//        mDisplayList.clear()
+        mDisplayList.clear()
         for (i in blocks.indices) {
             val lines = blocks[i].lines
-            Log.i("xxxx", "$lines")
             for (j in lines.indices) {
                 val elements = lines[j].elements
-                Log.i("xxxx", "$elements")
+                val textInLine = ""
                 for (k in elements.indices) {
-                    Log.d("xxxx", "success: " + elements[k].text)
-                    mDisplayList.add(elements[k].text)
-                    mRecyclerView.scrollToPosition(mDisplayList.size - 1)
-                    mAdapter.notifyDataSetChanged()
+                    textInLine.plus(" ").plus(elements[k].text)
+                    Log.d("xxxx", textInLine)
                 }
+                mDisplayList.add(textInLine)
+                mRecyclerView.scrollToPosition(mDisplayList.size - 1)
+                mAdapter.notifyDataSetChanged()
             }
         }
     }
