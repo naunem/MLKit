@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.CompoundButton
 import android.widget.ToggleButton
+import com.example.mba0166.androidmlkit.barcode.BarcodeDetectionProcessor
 import com.example.mba0166.androidmlkit.faces.FaceDetectionProcessor
 import com.example.mba0166.androidmlkit.labelimages.LabelImageProcessor
 import com.example.mba0166.androidmlkit.text.TextRecognitionProcessor
@@ -24,6 +25,7 @@ class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedCha
     val FACE_DETECTION = "face"
     val TEXT_RECOGNITION = "text"
     val LABEL_IMAGE_RECOGNITION = "labelImage"
+    val BARCODE_RECOGNITION = "barcode"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +103,10 @@ class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedCha
 
                 LABEL_IMAGE_RECOGNITION -> {
                     mCameraSource!!.setMachineLearningFrameProcessor(LabelImageProcessor())
+                }
+
+                BARCODE_RECOGNITION -> {
+                    mCameraSource!!.setMachineLearningFrameProcessor(BarcodeDetectionProcessor())
                 }
             }
         } catch (e: Exception) {

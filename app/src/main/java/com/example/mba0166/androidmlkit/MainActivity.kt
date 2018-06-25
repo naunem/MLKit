@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.btnBarcode -> {
                 val intent = Intent(this, CameraDetectionActivity::class.java)
-                intent.putExtra("type", CameraDetectionActivity().FACE_DETECTION)
+                intent.putExtra("type", CameraDetectionActivity().BARCODE_RECOGNITION)
                 startActivity(intent)
             }
         }
