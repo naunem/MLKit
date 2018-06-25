@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val PERMISSION_REQUESTS = 1
     private lateinit var mBtnText: Button
     private lateinit var mBtnFaces: Button
+    private lateinit var mBtnLabelImage: Button
     private lateinit var mBtnBarcode: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +24,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         mBtnText = findViewById(R.id.btnText)
         mBtnFaces = findViewById(R.id.btnFaces)
+        mBtnLabelImage = findViewById(R.id.btnLabelImage)
         mBtnBarcode = findViewById(R.id.btnBarcode)
 
         mBtnText.setOnClickListener(this)
         mBtnFaces.setOnClickListener(this)
+        mBtnLabelImage.setOnClickListener(this)
         mBtnBarcode.setOnClickListener(this)
 
         getRuntimePermissons()
@@ -44,8 +47,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra("type", CameraDetectionActivity().FACE_DETECTION)
                 startActivity(intent)
             }
-            R.id.btnBarcode -> {
 
+            R.id.btnLabelImage -> {
+                val intent = Intent(this, CameraDetectionActivity::class.java)
+                intent.putExtra("type", CameraDetectionActivity().LABEL_IMAGE_RECOGNITION)
+                startActivity(intent)
+            }
+
+            R.id.btnBarcode -> {
+                val intent = Intent(this, CameraDetectionActivity::class.java)
+                intent.putExtra("type", CameraDetectionActivity().FACE_DETECTION)
+                startActivity(intent)
             }
         }
     }

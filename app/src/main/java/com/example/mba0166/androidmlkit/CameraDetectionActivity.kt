@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.CompoundButton
 import android.widget.ToggleButton
 import com.example.mba0166.androidmlkit.faces.FaceDetectionProcessor
+import com.example.mba0166.androidmlkit.labelimages.LabelImageProcessor
 import com.example.mba0166.androidmlkit.text.TextRecognitionProcessor
 import java.io.IOException
 
@@ -22,6 +23,7 @@ class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedCha
 
     val FACE_DETECTION = "face"
     val TEXT_RECOGNITION = "text"
+    val LABEL_IMAGE_RECOGNITION = "labelImage"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,13 +90,17 @@ class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedCha
         }
 
         try {
-            when(type) {
+            when (type) {
                 FACE_DETECTION -> {
                     mCameraSource!!.setMachineLearningFrameProcessor(FaceDetectionProcessor())
                 }
 
                 TEXT_RECOGNITION -> {
                     mCameraSource!!.setMachineLearningFrameProcessor(TextRecognitionProcessor())
+                }
+
+                LABEL_IMAGE_RECOGNITION -> {
+                    mCameraSource!!.setMachineLearningFrameProcessor(LabelImageProcessor())
                 }
             }
         } catch (e: Exception) {

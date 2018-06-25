@@ -18,6 +18,12 @@
         android:text="Face Detection"/>
 
     <Button
+        android:id="@+id/btnLabelImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Label Image Detection"/>
+
+    <Button
         android:id="@+id/btnBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

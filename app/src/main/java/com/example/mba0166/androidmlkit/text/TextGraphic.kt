@@ -5,13 +5,14 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import com.example.mba0166.androidmlkit.GraphicOverlay
+import com.example.mba0166.androidmlkit.GraphicOverlay.Graphic
 import com.google.firebase.ml.vision.text.FirebaseVisionText
 
 /**
  * Asian Tech Co., Ltd.
  * Created by nhanphant on 6/25/18
  */
-class TextGraphic(graphicOverlay: GraphicOverlay, private var text: FirebaseVisionText.Element) : GraphicOverlay.Graphic(graphicOverlay) {
+class TextGraphic(graphicOverlay: GraphicOverlay, private var text: FirebaseVisionText.Element) : Graphic(graphicOverlay) {
 
     private val mPaint = Paint()
     private val mPaintText = Paint()
