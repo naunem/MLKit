@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".text.TextRecognitionActivity" />
-        <activity android:name=".faces.FaceDetectionActivity" />
+        <activity android:name=".CameraDetectionActivity" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"

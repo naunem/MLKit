@@ -1,30 +1,36 @@
-package com.example.mba0166.androidmlkit.faces
+package com.example.mba0166.androidmlkit
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.CompoundButton
 import android.widget.ToggleButton
-import com.example.mba0166.androidmlkit.*
+import com.example.mba0166.androidmlkit.faces.FaceDetectionProcessor
+import com.example.mba0166.androidmlkit.text.TextRecognitionProcessor
 import java.io.IOException
 
 /**
  * Asian Tech Co., Ltd.
  * Created by nhanphant on 6/21/18
  */
-class FaceDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
+class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
 
     private var mPreview: CameraSourcePreview? = null
     private var mGraphicOverlay: GraphicOverlay? = null
     private var mTbSwitchCamera: ToggleButton? = null
     private var mCameraSource: CameraSource? = null
 
+    val FACE_DETECTION = "face"
+    val TEXT_RECOGNITION = "text"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_face_detection)
+        setContentView(R.layout.activity_camera_detection)
 
         initView()
-        createCameraSource()
+
+        val type = intent.getStringExtra("type")
+        createCameraSource(type)
     }
 
     override fun onResume() {
@@ -76,13 +82,21 @@ class FaceDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedChang
         }
     }
 
-    private fun createCameraSource() {
+    private fun createCameraSource(type: String?) {
         if (mCameraSource == null) {
             mCameraSource = CameraSource(this, mGraphicOverlay)
         }
 
         try {
-            mCameraSource!!.setMachineLearningFrameProcessor(FaceDetectionProcessor())
+            when(type) {
+                FACE_DETECTION -> {
+                    mCameraSource!!.setMachineLearningFrameProcessor(FaceDetectionProcessor())
+                }
+
+                TEXT_RECOGNITION -> {
+                    mCameraSource!!.setMachineLearningFrameProcessor(TextRecognitionProcessor())
+                }
+            }
         } catch (e: Exception) {
             Log.d("xxxx", "createCameraSource can not create camera source: " + e.cause)
             e.printStackTrace()

@@ -3,7 +3,6 @@ package com.example.mba0166.androidmlkit.text
 import android.util.Log
 import com.example.mba0166.androidmlkit.FrameMetadata
 import com.example.mba0166.androidmlkit.GraphicOverlay
-import com.example.mba0166.androidmlkit.OnRecognitionListener
 import com.example.mba0166.androidmlkit.VisionProcessorBase
 import com.google.android.gms.tasks.Task
 import com.google.firebase.ml.vision.FirebaseVision
@@ -16,7 +15,7 @@ import java.io.IOException
  * Asian Tech Co., Ltd.
  * Created by nhanphant on 6/21/18
  */
-class TextRecognitionProcessor(private val onRecognitionListener: OnRecognitionListener) : VisionProcessorBase<FirebaseVisionText>() {
+class TextRecognitionProcessor : VisionProcessorBase<FirebaseVisionText>() {
 
     private val mDetector: FirebaseVisionTextDetector = FirebaseVision.getInstance().visionTextDetector
 
@@ -34,10 +33,18 @@ class TextRecognitionProcessor(private val onRecognitionListener: OnRecognitionL
 
     override fun onSuccess(results: FirebaseVisionText, frameMetadata: FrameMetadata, graphicOverlay: GraphicOverlay) {
         graphicOverlay.clear()
-        onRecognitionListener.success(results)
+        val blocks = results.blocks
+        for (block in blocks) {
+            for (line in block.lines) {
+                for (element in line.elements) {
+                    val textGraphic = TextGraphic(graphicOverlay, element)
+                    graphicOverlay.add(textGraphic)
+                }
+            }
+        }
     }
 
     override fun onFailure(e: Exception) {
-        onRecognitionListener.error(e.message.toString())
+        Log.e("xxxx", "onFailure: ${e.message}")
     }
 }
