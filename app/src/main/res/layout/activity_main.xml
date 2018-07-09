@@ -30,6 +30,12 @@
         android:text="Barcode Detection" />
 
     <Button
+        android:id="@+id/btnCloudLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cloud Label Detection" />
+
+    <Button
         android:id="@+id/btnCloudLandmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

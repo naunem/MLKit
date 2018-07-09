@@ -8,6 +8,7 @@ import android.widget.ToggleButton
 import com.example.mba0166.androidmlkit.barcode.BarcodeDetectionProcessor
 import com.example.mba0166.androidmlkit.cloudlandmark.CloudLandmarkRecognitionProcessor
 import com.example.mba0166.androidmlkit.faces.FaceDetectionProcessor
+import com.example.mba0166.androidmlkit.labelimages.CloudLabelImageProcessor
 import com.example.mba0166.androidmlkit.labelimages.LabelImageProcessor
 import com.example.mba0166.androidmlkit.text.TextRecognitionProcessor
 import java.io.IOException
@@ -28,6 +29,7 @@ class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedCha
     val TEXT_RECOGNITION = "text"
     val LABEL_IMAGE_RECOGNITION = "labelImage"
     val BARCODE_RECOGNITION = "barcode"
+    val CLOUD_LABEL_DETECTION = "cloudLabel"
     val CLOUD_LANDMARK_RECOGNITION = "cloudLandmark"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,6 +112,10 @@ class CameraDetectionActivity : AppCompatActivity(), CompoundButton.OnCheckedCha
 
                 BARCODE_RECOGNITION -> {
                     mCameraSource!!.setMachineLearningFrameProcessor(BarcodeDetectionProcessor())
+                }
+
+                CLOUD_LABEL_DETECTION -> {
+                    mCameraSource!!.setMachineLearningFrameProcessor(CloudLabelImageProcessor())
                 }
 
                 CLOUD_LANDMARK_RECOGNITION -> {

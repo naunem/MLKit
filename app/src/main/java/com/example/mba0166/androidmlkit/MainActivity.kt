@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBtnFaces: Button
     private lateinit var mBtnLabelImage: Button
     private lateinit var mBtnBarcode: Button
+    private lateinit var mBtnCloudLabel: Button
     private lateinit var mBtnCloudLandmark: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +28,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mBtnFaces = findViewById(R.id.btnFaces)
         mBtnLabelImage = findViewById(R.id.btnLabelImage)
         mBtnBarcode = findViewById(R.id.btnBarcode)
+        mBtnCloudLabel = findViewById(R.id.btnCloudLabel)
         mBtnCloudLandmark = findViewById(R.id.btnCloudLandmark)
 
         mBtnText.setOnClickListener(this)
         mBtnFaces.setOnClickListener(this)
         mBtnLabelImage.setOnClickListener(this)
         mBtnBarcode.setOnClickListener(this)
+        mBtnCloudLabel.setOnClickListener(this)
         mBtnCloudLandmark.setOnClickListener(this)
 
         getRuntimePermissions()
@@ -60,6 +63,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnBarcode -> {
                 val intent = Intent(this, CameraDetectionActivity::class.java)
                 intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().BARCODE_RECOGNITION)
+                startActivity(intent)
+            }
+
+            R.id.btnCloudLabel -> {
+                val intent = Intent(this, CameraDetectionActivity::class.java)
+                intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().CLOUD_LABEL_DETECTION)
                 startActivity(intent)
             }
 
