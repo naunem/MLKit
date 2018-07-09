@@ -13,7 +13,8 @@ import java.io.IOException
 /**
  * Preview the camera image in the screen.
  */
-class CameraSourcePreview(private val mContext: Context, attrs: AttributeSet) : ViewGroup(mContext, attrs) {
+class CameraSourcePreview(private val mContext: Context, attrs: AttributeSet) : ViewGroup(mContext, attrs), SurfaceHolder.Callback {
+
     private val surfaceView: SurfaceView
     private var startRequested: Boolean = false
     private var surfaceAvailable: Boolean = false
@@ -32,9 +33,39 @@ class CameraSourcePreview(private val mContext: Context, attrs: AttributeSet) : 
         surfaceAvailable = false
 
         surfaceView = SurfaceView(mContext)
-        surfaceView.holder.addCallback(SurfaceCallback())
+        surfaceView.holder.addCallback(this)
         addView(surfaceView)
     }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        val layoutWidth = right - left
+        val layoutHeight = bottom - top
+
+        for (i in 0 until childCount) {
+            getChildAt(i).layout(0, 0, layoutWidth, layoutHeight)
+        }
+
+        try {
+            startIfReady()
+        } catch (e: IOException) {
+            Log.e("xxxx", "Could not start camera source.", e)
+        }
+    }
+
+    override fun surfaceCreated(surface: SurfaceHolder) {
+        surfaceAvailable = true
+        try {
+            startIfReady()
+        } catch (e: IOException) {
+            Log.e("xxxx", "Could not start camera source.", e)
+        }
+    }
+
+    override fun surfaceDestroyed(surface: SurfaceHolder) {
+        surfaceAvailable = false
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
 
     @Throws(IOException::class)
     fun start(cameraSource: CameraSource?) {
@@ -81,41 +112,5 @@ class CameraSourcePreview(private val mContext: Context, attrs: AttributeSet) : 
             }
             startRequested = false
         }
-    }
-
-    private inner class SurfaceCallback : SurfaceHolder.Callback {
-        override fun surfaceCreated(surface: SurfaceHolder) {
-            surfaceAvailable = true
-            try {
-                startIfReady()
-            } catch (e: IOException) {
-                Log.e(TAG, "Could not start camera source.", e)
-            }
-        }
-
-        override fun surfaceDestroyed(surface: SurfaceHolder) {
-            surfaceAvailable = false
-        }
-
-        override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
-    }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        val layoutWidth = right - left
-        val layoutHeight = bottom - top
-
-        for (i in 0 until childCount) {
-            getChildAt(i).layout(0, 0, layoutWidth, layoutHeight)
-        }
-
-        try {
-            startIfReady()
-        } catch (e: IOException) {
-            Log.e(TAG, "Could not start camera source.", e)
-        }
-    }
-
-    companion object {
-        private val TAG = CameraSourcePreview::class.java.simpleName
     }
 }

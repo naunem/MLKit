@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBtnFaces: Button
     private lateinit var mBtnLabelImage: Button
     private lateinit var mBtnBarcode: Button
+    private lateinit var mBtnCloudLandmark: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,37 +27,45 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mBtnFaces = findViewById(R.id.btnFaces)
         mBtnLabelImage = findViewById(R.id.btnLabelImage)
         mBtnBarcode = findViewById(R.id.btnBarcode)
+        mBtnCloudLandmark = findViewById(R.id.btnCloudLandmark)
 
         mBtnText.setOnClickListener(this)
         mBtnFaces.setOnClickListener(this)
         mBtnLabelImage.setOnClickListener(this)
         mBtnBarcode.setOnClickListener(this)
+        mBtnCloudLandmark.setOnClickListener(this)
 
-        getRuntimePermissons()
+        getRuntimePermissions()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnText -> {
                 val intent = Intent(this, CameraDetectionActivity::class.java)
-                intent.putExtra("type", CameraDetectionActivity().TEXT_RECOGNITION)
+                intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().TEXT_RECOGNITION)
                 startActivity(intent)
             }
             R.id.btnFaces -> {
                 val intent = Intent(this, CameraDetectionActivity::class.java)
-                intent.putExtra("type", CameraDetectionActivity().FACE_DETECTION)
+                intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().FACE_DETECTION)
                 startActivity(intent)
             }
 
             R.id.btnLabelImage -> {
                 val intent = Intent(this, CameraDetectionActivity::class.java)
-                intent.putExtra("type", CameraDetectionActivity().LABEL_IMAGE_RECOGNITION)
+                intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().LABEL_IMAGE_RECOGNITION)
                 startActivity(intent)
             }
 
             R.id.btnBarcode -> {
                 val intent = Intent(this, CameraDetectionActivity::class.java)
-                intent.putExtra("type", CameraDetectionActivity().BARCODE_RECOGNITION)
+                intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().BARCODE_RECOGNITION)
+                startActivity(intent)
+            }
+
+            R.id.btnCloudLandmark -> {
+                val intent = Intent(this, CameraDetectionActivity::class.java)
+                intent.putExtra(CameraDetectionActivity().TYPE, CameraDetectionActivity().CLOUD_LANDMARK_RECOGNITION)
                 startActivity(intent)
             }
         }
@@ -79,7 +88,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun isPermissionGranted(context: Context, permission: String) =
             ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 
-    private fun getRuntimePermissons() {
+    private fun getRuntimePermissions() {
         val allNeedPermissions = arrayListOf<String>()
         for (permission in getRequiredPermissions()) {
             if (!isPermissionGranted(this, permission)) {

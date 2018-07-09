@@ -2,30 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/btnText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Text Recognition"/>
+        android:text="Text Recognition" />
 
     <Button
         android:id="@+id/btnFaces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Face Detection"/>
+        android:text="Face Detection" />
 
     <Button
         android:id="@+id/btnLabelImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Label Image Detection"/>
+        android:text="Label Image Detection" />
 
     <Button
         android:id="@+id/btnBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Barcode Detection"/>
+        android:text="Barcode Detection" />
+
+    <Button
+        android:id="@+id/btnCloudLandmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cloud Landmark Recognition" />
 </LinearLayout>

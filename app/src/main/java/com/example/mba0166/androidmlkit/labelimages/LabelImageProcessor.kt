@@ -22,7 +22,7 @@ class LabelImageProcessor : VisionProcessorBase<List<FirebaseVisionLabel>>() {
 
     init {
         val option = FirebaseVisionLabelDetectorOptions.Builder()
-                .setConfidenceThreshold(0.8f)
+                .setConfidenceThreshold(1.0f)
                 .build()
 
         mDetector = FirebaseVision.getInstance().getVisionLabelDetector(option)

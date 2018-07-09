@@ -32,9 +32,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
     }
 
     @Override
-    public void process(
-            ByteBuffer data, final FrameMetadata frameMetadata, final GraphicOverlay
-            graphicOverlay) {
+    public void process(ByteBuffer data, final FrameMetadata frameMetadata, final GraphicOverlay graphicOverlay) {
         if (shouldThrottle.get()) {
             return;
         }
@@ -51,8 +49,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
 
     // Bitmap version
     @Override
-    public void process(Bitmap bitmap, final GraphicOverlay
-            graphicOverlay) {
+    public void process(Bitmap bitmap, final GraphicOverlay graphicOverlay) {
         if (shouldThrottle.get()) {
             return;
         }

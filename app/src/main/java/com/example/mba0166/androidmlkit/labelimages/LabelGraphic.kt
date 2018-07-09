@@ -22,7 +22,7 @@ class LabelGraphic(private val labels: List<FirebaseVisionLabel>, private val gr
     }
 
     override fun draw(canvas: Canvas?) {
-        var x = graphicOverlay.width / 3.0f
+        val x = graphicOverlay.width / 3.0f
         var y = graphicOverlay.height / 2.0f
         for (label in labels) {
             val result = String.format("%s : %s", label.label, label.confidence)
