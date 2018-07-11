@@ -20,8 +20,7 @@ class FaceGraphic(graphicOverlay: GraphicOverlay) : Graphic(graphicOverlay) {
     private val ID_Y_OFFSET = 50.0f
     private val ID_X_OFFSET = -50.0f
     private val BOX_STROKE_WIDTH = 10f
-    private var facing: Int = 0
-
+    private var mFacing: Int = 0
     private val mPaint = Paint()
     private val mPaintText = Paint()
 
@@ -42,13 +41,13 @@ class FaceGraphic(graphicOverlay: GraphicOverlay) : Graphic(graphicOverlay) {
         canvas?.let {
             canvas.drawPoint(x, y, mPaint)
             canvas.drawText("id: ${face.trackingId}", x + ID_X_OFFSET, y + ID_Y_OFFSET, mPaintText)
-            canvas.drawText("happiness: ${face.smilingProbability}", x + ID_X_OFFSET * 3, y - ID_Y_OFFSET, mPaintText)
-            if (facing == CameraSource.CAMERA_FACING_FRONT) {
-                canvas.drawText("right eye: ${face.rightEyeOpenProbability}", x - ID_X_OFFSET, y, mPaintText)
-                canvas.drawText("left eye: ${face.leftEyeOpenProbability}", x + ID_X_OFFSET * 6, y, mPaintText)
+            canvas.drawText("happiness: ${String.format("%.2f", face.smilingProbability)}", x + ID_X_OFFSET * 3, y - ID_Y_OFFSET, mPaintText)
+            if (mFacing != CameraSource.CAMERA_FACING_FRONT) {
+                canvas.drawText("right eye: ${String.format("%.2f", face.rightEyeOpenProbability)}", x - ID_X_OFFSET, y, mPaintText)
+                canvas.drawText("left eye: ${String.format("%.2f", face.leftEyeOpenProbability)}", x + ID_X_OFFSET * 6, y, mPaintText)
             } else {
-                canvas.drawText("left eye: ${face.leftEyeOpenProbability}", x - ID_X_OFFSET, y, mPaintText)
-                canvas.drawText("right eye: ${face.rightEyeOpenProbability}", x + ID_X_OFFSET * 6, y, mPaintText)
+                canvas.drawText("left eye: ${String.format("%.2f", face.leftEyeOpenProbability)}", x - ID_X_OFFSET, y, mPaintText)
+                canvas.drawText("right eye: ${String.format("%.2f", face.rightEyeOpenProbability)}", x + ID_X_OFFSET * 6, y, mPaintText)
             }
 
             // Draws a bounding box around the face.
